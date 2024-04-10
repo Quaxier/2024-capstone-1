@@ -1,5 +1,7 @@
 // const mongoClient = require('mongodb').MongoClient;
 const express=require('express');
+const path = require('path');
+const axios = require('axios')
 
 const connect = require('./schema')
 
@@ -7,11 +9,13 @@ const app = express();
 
 connect();
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static('public'));
+//const bodyParser = require('body-parser');
+//app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 app.set('view engine', 'ejs');
-app.set('views','./views');
+//app.set('views','./views');
 let session = require("express-session");
 app.use(session({
    secret: 'dkufe8938493j4e08349u',
@@ -26,6 +30,7 @@ const usersRouter = require('./router/users');
 const commentsRouter = require('./router/comments');
 const postsRouter = require('./router/posts');
 const recommentsRouter = require('./router/recomments');
+//const { urlencoded } = require('body-parser');
 
 // 라우터 연결
 app.use('/', indexRouter); // 기본 요청

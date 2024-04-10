@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+</head>
+<body>
+    <h2>회원 가입</h2>
+    <form id="duplicate_Check">
+        <label for="username">아이디:</label><br>
+        <input type="text" id="user_id"><br>
+        <button type="button" onclick="duplicateCheck()" id="duplicateBtn">중복 확인</button><br><br>
+    </form>
+    <form action="" method="">
+        <label for="name">이름:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        
+        <label for="stdid">학번:</label><br>
+        <input type="text" id="stdid" name="student_id"><br><br>
+        
+        <label for="phone">연락처:</label><br>
+        <input type="text" id="phone" name="contact"><br><br>
+        
+        <label for="email">이메일:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="password">비밀번호:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <label for="confirm_password">비밀번호 확인:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password"><br>
+        <span id="password_match"></span><br><br>
+        
+        <button type="button" onclick="registerUser()" id="register" disabled="true">가입하기</button>
+    </form>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function checkUsername() {
+            // JavaScript function to check username availability (you need backend logic for this)
+            alert("아이디 중복 확인을 수행합니다.");
+        }
+        
+        document.getElementById("confirm_password").addEventListener("keyup", function() {
+            var password = document.getElementById("password");
+            var confirm_password = document.getElementById("confirm_password");
+            var password_match = document.getElementById("password_match");
+            if (password.value != confirm_password.value) {
+                password_match.innerHTML = "비밀번호가 일치하지 않습니다.";
+            } else {
+                password_match.innerHTML = "";
+            }
+        });
+
+        // document.getElementById("duplicate_Check").addEventListener("submit", async (e) =>{
+        //     e.preventDefault();
+        //     const user_id = e.target.user_id.value;
+        //     if(!user_id) {
+        //         return alert('ID 를 입력하세요! @@@');
+        //     }
+        //     try {
+        //         // axios.get('/router/')
+        //         // .then(function(response) {
+        //         //         alert('성공');
+        //         // });  
+        //         console.log(user_id);
+        //         alert(user_id);
+        //         const res = await axios.get('/users', {user_id});
+        //         const users = res.data;
+        //         alert(users);
+        //         alert(res);
+        //         console.log(users);
+        //         console.log(res);
+        //         if(users.checked) {
+        //             const target = document.getElementById('duplicateBtn');
+        //             target.disabled = true;
+        //             return alert('사용 가능한 아이디입니다!');
+        //         }
+        //         else {
+        //             return alert('이미 사용중인 아이디입니다!');
+        //         }
+        //     } catch(err) {
+        //         console.error(err);
+        //     }
+        // })
+
+        async function duplicateCheck() {
+                const user_id = document.getElementById("user_id").value;
+                if (!user_id) {
+                    return alert("ID 를 입력하세요!");
+                }
+
+                try {
+                    //get 요청으로는 post처럼 데이터를 전송할 수 없다. 전송하려면 params에 데이터를 담아 req.query 로 읽어야 한다!
+                    //res 는 axios.get 의 리스폰스-응답-객체이다. res.send(내용) 으로 전송된 데이터는 res.data 로 읽을 수 있다!
+                    const res = await axios.get('/users', {params: {user_id: user_id}});
+                    const users = res.data;
+                    alert(users);
+                    if (res.status===200 && users) {
+                        const btn = document.getElementById("duplicateBtn");
+                        const txt = document.getElementById("user_id");
+                        const reg = document.getElementById("register");
+                        btn.disabled = true;
+                        txt.disabled = true;
+                        reg.disabled = false;
+                        return alert("사용 가능한 아이디입니다!");
+                    } else {
+                        return alert("이미 사용중인 아이디입니다!");
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
+        };
+
+        async function registerUser() {
+            const user_id = document.getElementById("user_id").value;
+            const name = document.getElementById("name").value;
+            const stdid = document.getElementById("stdid").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            if (!name) {
+                return alert('이름을 입력하세요!');
+            }
+            if (!stdid) {
+                return alert('학번을 입력하세요!');
+            }
+            if (!phone) {
+                return alert('연락처를 입력하세요!');
+            }
+            if (!email) {
+                return alert('이메일을 입력하세요!');
+            }
+            if (!password) {
+                return alert('비밀번호를 입력하세요!');
+            }
+
+            try{
+                const res = await axios.post('/users', { user_id, name, stdid, phone, email, password });
+                user = res.data;
+                console.log(user);
+                alert('회원가입 완료!\n반갑습니다, ' + user.user_name + ' 님!');
+                location.href='login.ejs';
+                
+            } catch(err) {
+                console.error(err);
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>

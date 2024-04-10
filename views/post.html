@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+        header img {
+            width: 100px;
+            height: auto;
+        }
+        .container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+        .content {
+            width: 50%;
+            padding: 20px;
+        }
+        .title {
+            width: calc(100% - 360px);
+            margin-right: 180px;
+            margin-bottom: 20px;
+        }
+        .title input {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        .content textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            box-sizing: border-box;
+            resize: none;
+        }
+        .buttons {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="wise_logo.png" alt="동국대 Wise 로고">
+    </header>
+    <div class="container">
+        <div class="content">
+            <div class="title">
+                <input type="text" placeholder="제목을 입력하세요">
+            </div>
+            <div class="body">
+                <textarea placeholder="내용을 입력하세요"></textarea>
+            </div>
+            <div class="buttons">
+                <button>게시글 작성</button>
+                <button>게시글 임시저장</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        input[type="text"], input[type="password"], input[type="submit"], input[type="checkbox"] {
+            width: 200px;
+            height: 30px;
+            margin-bottom: 10px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>로그인</h2>
+    <div class="container">
+        <img src="login_image.jpg" alt="로그인 이미지"><br>
+        <form action="/login" method="post">
+            <input type="text" id="username" placeholder="아이디" required><br>
+            <input type="password" id="password" placeholder="비밀번호" required><br>
+            <input type="checkbox" id="remember" name="remember">
+            <label for="remember">로그인 정보 저장</label><br>
+            <button type="button" onclick="getLogin()">로그인</button>
+        </form>
+        <p>회원이 아니신가요? <a href="register.ejs">회원가입 하기</a></p>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        async function getLogin() {
+            const ids = document.getElementById('username').value;
+            const pws = document.getElementById('password').value;
+
+            if (!ids) {
+                return alert("ID 를 입력하세요!");
+            }
+            if (!pws) {
+                return alert("PW 를 입력하세요!");
+            }
+
+            try {
+                //240411 0:55 수정 중.. 데이터가 가져와지지 않음
+                const res = await axios.get(`/users/${ids}/${pws}`); // 백틱 ` 사용함
+                const users = res.data;
+                alert(users);
+                alert('로그인 완료!\n반갑습니다, ' + users.user_name + ' 님!');
+                if(Array.isArray(user) && user.length===1) {
+                    //alert('로그인 완료!\n반갑습니다, ' + user.user_name + ' 님!');
+                    //location.href='main.ejs';
+
+                }
+            }
+            catch(err) {
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>

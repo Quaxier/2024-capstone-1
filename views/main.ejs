@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 확인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+        header h2 {
+            margin: 0;
+        }
+        .post {
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            padding: 20px;
+            width: 60%;
+        }
+        .post-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .author-profile {
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        .post-info {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .post-content {
+            margin-bottom: 20px;
+        }
+        .like-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .comments {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>게시판 이름</h2>
+    </header>
+    <div class="post">
+        <div class="post-title">게시글 제목</div>
+        <div class="author-profile">작성자: 작성한 사람</div>
+        <div class="post-info">작성일: 작성한 날짜 | 조회수: 조회수</div>
+        <div class="post-content">
+            게시글 내용<br>
+            여기에 게시글 내용을 표시합니다.
+        </div>
+        <button class="like-button">좋아요</button>
+        <div class="comments">댓글 수: 댓글 수</div>
+    </div>
+</body>
+</html>
