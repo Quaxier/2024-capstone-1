@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.find({});
-    console.log('indexes 호출됨!');
-    console.log(users);
+    //const users = await User.find({});
+    console.log('로그인 페이지 호출됨!');
+    //console.log(users);
 
     res.render('login.ejs');
     // res.status(200).json(users);
@@ -25,6 +25,28 @@ router.get('/', async (req, res, next) => {
     // });
     // console.log(user);
   } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get('/register', async(req, res, next)=>{
+  try {
+    console.log('회원가입 페이지 호출됨');
+    res.render('register.ejs');
+  }
+  catch(err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get('/main', async(req, res, next)=>{
+  try {
+    console.log('메인 페이지 호출됨');
+    res.render('main.ejs');
+  }
+  catch(err) {
     console.error(err);
     next(err);
   }

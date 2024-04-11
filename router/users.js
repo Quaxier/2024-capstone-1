@@ -41,7 +41,7 @@ router.route('/').get(async (req, res, next)=>{ // 아이디 중복 확인 요�
     }
 });
 
-router.get('/:id/:pw', async (req, res, next) => {
+router.route('/:id/:pw').get(async (req, res, next) => {
     try {
       console.log('로그인 요청 수신됨!');
       console.log('ID: '+req.params.id+'\nPW: '+req.params.pw);
@@ -52,7 +52,7 @@ router.get('/:id/:pw', async (req, res, next) => {
       }
       else if(users.length===1 && Array.isArray(users)) {
         console.log('로그인 성공: \n'+users);
-        res.status(201).json(users);
+        res.status(200).json(users);
       }
       else {
         console.log('로그인 실패');

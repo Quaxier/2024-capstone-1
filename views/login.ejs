@@ -34,7 +34,7 @@
             <label for="remember">로그인 정보 저장</label><br>
             <button type="button" onclick="getLogin()">로그인</button>
         </form>
-        <p>회원이 아니신가요? <a href="register.ejs">회원가입 하기</a></p>
+        <p>회원이 아니신가요? <a href="/register">회원가입 하기</a></p>
     </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -52,14 +52,13 @@
 
             try {
                 //240411 0:55 수정 중.. 데이터가 가져와지지 않음
+                //240411 15:05 수정완료. res의 데이터를 가져오려면 key값 data로 접근한 후 배열0번쨰의 key값 user~로 접근해야 한다.
                 const res = await axios.get(`/users/${ids}/${pws}`); // 백틱 ` 사용함
-                const users = res.data;
-                alert(users);
-                alert('로그인 완료!\n반갑습니다, ' + users.user_name + ' 님!');
+                const user = res.data;
+                // const users = Object.keys(user[0]); // 객체의 키값을 배열로 반환하는 함수를 통해 어떻게 접근해야 하는지 알아냄!
                 if(Array.isArray(user) && user.length===1) {
-                    //alert('로그인 완료!\n반갑습니다, ' + user.user_name + ' 님!');
-                    //location.href='main.ejs';
-
+                    alert('로그인 완료!\n반갑습니다, ' + user[0].user_name + ' 님!');
+                    location.replace('/main');
                 }
             }
             catch(err) {
