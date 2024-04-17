@@ -52,11 +52,9 @@
             box-sizing: border-box;
             resize: none;
         }
-        .buttons {
+        .button {
             text-align: right;
             margin-top: 20px;
-        }
-        .buttons button {
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
@@ -74,16 +72,44 @@
     <div class="container">
         <div class="content">
             <div class="title">
-                <input type="text" placeholder="제목을 입력하세요">
+                <input type="text" placeholder="제목을 입력하세요" id="title">
             </div>
             <div class="body">
-                <textarea placeholder="내용을 입력하세요"></textarea>
+                <textarea placeholder="내용을 입력하세요" id="content"></textarea>
             </div>
-            <div class="buttons">
-                <button>게시글 작성</button>
-                <button>게시글 임시저장</button>
-            </div>
+            <div class="button" onClick = "writePost()">게시글 작성</div>
+            <div class="button" onClick = "writePostTemp()">게시글 임시저장</div>
         </div>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // 2024.04.15 게시글 작성 기능 구현 완료
+        // 2024.04.17 기능 동작 안함. 수정 완료
+        async function writePost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            if (!title){
+                return alert("제목을 입력해주세요.");
+            }
+
+            if (!content){
+                return alert("내용을 입력해주세요.");
+            }
+
+            try{
+                // 2024.04.15 회원가입 기능 코드를 활용하여 DB에 제목과 내용을 전달함.
+                // 2024.04.17 POST /posts 라우터가 없습니다. 에러 수정중 | user_id를 어떻게 보낼지 방안 생각하기
+                const res = await axios.post('/posts', { title, content });
+                post = res.data;
+                console.log(post);
+                alert('게시글을 업로드 했습니다!');
+                location.href='/main';
+                
+            } catch(err) {
+                console.error(err);
+            }
+        }
+    </script>
 </body>
 </html>
