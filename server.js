@@ -1,5 +1,4 @@
-// const mongoClient = require('mongodb').MongoClient;
-const express=require('express');
+const express = require('express');
 const path = require('path');
 const axios = require('axios')
 
@@ -48,6 +47,7 @@ app.use((req, res, next) => {
 
 
 // 서버 연결
+
 app.listen(8080, function(){
     console.log('8080 포트 대기 중!');
 }) 

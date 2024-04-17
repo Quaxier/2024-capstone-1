@@ -48,6 +48,14 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .write-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
         .comments {
             float: right;
         }
@@ -82,35 +90,23 @@
             </div>
             <button class="like-button">좋아요</button>
             <div class="comments">댓글 수: 댓글 수</div>
+        <button class = "write-button" onclick = "goWrite()">게시글 작성</div>
+    </header>
+    <div class="post">
+        <div class="post-title">제목 : </div>
+        <div class="author-profile">작성자: 작성한 사람</div>
+        <div class="post-info">작성일: 작성한 날짜 | 조회수: 조회수</div>
+        <div class="post-content">
+            게시글 내용<br>
+            여기에 게시글 내용을 표시합니다.
         </div>
     </div>
-
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-
-        async function getPost() {
-            try{
-                // const res = await axios.get('/posts');
-                // const posts = res.data;
-                // const post = document.querySelector('.post-list');
-                // post.innerHTML='';
-
-                // posts.map(function (post) {
-                //     const div = document.createElement('div');
-                //     let title = document.createElement('div');
-                //     title.textContent=post.post_title;
-                //     let profile = document.createElement('div');
-                //     profile.textContent=post.user_id;
-                //     let info = document.createElement('div');
-                //     info.textContent="작성일 : "+post.post_date+" | 조회수: "+post.post_view;
-                // })
-
-                
-
-            } catch(err) {
-                console.error(err);
-            }
-        };
+        
+        async function goWrite() {
+            location.replace('/post');
+        }
     </script>
 </body>
 </html>

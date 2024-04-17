@@ -72,4 +72,15 @@ router.get('/register', async(req, res, next)=>{
 //   }
 // });
 
+router.get('/post', async(req, res, next)=>{
+  try {
+    console.log('게시글 작성 페이지 호출됨');
+    res.render('post.ejs');
+  }
+  catch(err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 module.exports = router;
