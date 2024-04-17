@@ -98,8 +98,8 @@
             }
 
             try{
-                // 2024.04.15 회원가입 기능 코드를 활용하여 DB에 제목과 내용을 전달함.
-                // 2024.04.17 POST /posts 라우터가 없습니다. 에러 수정중 | user_id를 어떻게 보낼지 방안 생각하기
+                // 2024.04.15 user_id를 어떻게 보낼지 방안 생각하기
+                // 2024.04.17 라우터를 찾지 못하는 오류 수정
                 const res = await axios.post('/posts', { title, content });
                 post = res.data;
                 console.log(post);

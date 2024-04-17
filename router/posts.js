@@ -4,7 +4,7 @@ const Post = require('../schema/post');
 
 const router = express.Router();
 
-router.route('/main').post(async (req, res, next)=>{ // 게시글 작성 기능
+router.route('/').post(async (req, res, next)=>{ // 게시글 작성 기능
     try{
         console.log('게시글 작성 요청 수신됨!');
         console.log(req.body);
