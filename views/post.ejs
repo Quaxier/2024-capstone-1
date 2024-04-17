@@ -100,7 +100,7 @@
             try{
                 // 2024.04.15 user_id를 어떻게 보낼지 방안 생각하기
                 // 2024.04.17 라우터를 찾지 못하는 오류 수정
-                const res = await axios.post('/posts', { title, content });
+                const res = await axios.post(`/posts`, {title, content});
                 post = res.data;
                 console.log(post);
                 alert('게시글을 업로드 했습니다!');
@@ -111,5 +111,6 @@
             }
         }
     </script>
+
 </body>
 </html>
