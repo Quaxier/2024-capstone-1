@@ -58,7 +58,8 @@
                 // const users = Object.keys(user[0]); // 객체의 키값을 배열로 반환하는 함수를 통해 어떻게 접근해야 하는지 알아냄!
                 if(Array.isArray(user) && user.length===1) {
                     alert('로그인 완료!\n반갑습니다, ' + user[0].user_name + ' 님!');
-                    location.replace('/main');
+                    // await axios.get('/posts');
+                    location.replace('/posts');
                 }
             }
             catch(err) {

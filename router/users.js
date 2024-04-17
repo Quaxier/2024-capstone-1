@@ -51,6 +51,8 @@ router.route('/:id/:pw').get(async (req, res, next) => {
         res.status(404).send('중복 계정이 있습니다');
       }
       else if(users.length===1 && Array.isArray(users)) {
+        req.session.user = users; // 세션에 사용자 정보 저장
+
         console.log('로그인 성공: \n'+users);
         res.status(200).json(users);
       }

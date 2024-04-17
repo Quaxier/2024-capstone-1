@@ -56,17 +56,61 @@
 <body>
     <header>
         <h2>게시판 이름</h2>
+        <h2>환영합니다, <%= user[0].user_name %> 님!</h2>
     </header>
-    <div class="post">
-        <div class="post-title">게시글 제목</div>
-        <div class="author-profile">작성자: 작성한 사람</div>
-        <div class="post-info">작성일: 작성한 날짜 | 조회수: 조회수</div>
-        <div class="post-content">
-            게시글 내용<br>
-            여기에 게시글 내용을 표시합니다.
+    <% for(let i=0; i<data.length; i++) { %>
+        <div class="post" onclick="getPost(data[i]._id)">
+            <div class="post-title"><%= data[i].post_title %></div>
+            <div class="author-profile"><%= data[i].user_id.user_name %></div>
+            <div class="post-info">작성일:<%= data[i].post_date %> | 조회수: <%= data[i].post_view %></div>
+            <div class="post-content">
+                게시글 내용<br>
+                여기에 게시글 내용을 표시합니다.
+            </div>
+            <button class="like-button">좋아요</button>
+            <div class="comments">댓글 수: 댓글 수</div>
         </div>
-        <button class="like-button">좋아요</button>
-        <div class="comments">댓글 수: 댓글 수</div>
+    <%}%>
+    <div class="post-list">
+        <div class="post">
+            <div class="post-title">게시글 제목</div>
+            <div class="author-profile">작성자: 작성한 사람</div>
+            <div class="post-info">작성일: 작성한 날짜 | 조회수: 조회수</div>
+            <div class="post-content">
+                게시글 내용<br>
+                여기에 게시글 내용을 표시합니다.
+            </div>
+            <button class="like-button">좋아요</button>
+            <div class="comments">댓글 수: 댓글 수</div>
+        </div>
     </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+        async function getPost() {
+            try{
+                // const res = await axios.get('/posts');
+                // const posts = res.data;
+                // const post = document.querySelector('.post-list');
+                // post.innerHTML='';
+
+                // posts.map(function (post) {
+                //     const div = document.createElement('div');
+                //     let title = document.createElement('div');
+                //     title.textContent=post.post_title;
+                //     let profile = document.createElement('div');
+                //     profile.textContent=post.user_id;
+                //     let info = document.createElement('div');
+                //     info.textContent="작성일 : "+post.post_date+" | 조회수: "+post.post_view;
+                // })
+
+                
+
+            } catch(err) {
+                console.error(err);
+            }
+        };
+    </script>
 </body>
 </html>
