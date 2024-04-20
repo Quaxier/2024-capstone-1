@@ -75,6 +75,7 @@ router.get('/register', async(req, res, next)=>{
 router.get('/post', async(req, res, next)=>{
   try {
     console.log('게시글 작성 페이지 호출됨');
+    console.log(req.session.user[0]._id);
     res.render('post.ejs');
   }
   catch(err) {

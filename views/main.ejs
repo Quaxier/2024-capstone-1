@@ -65,6 +65,7 @@
     <header>
         <h2>게시판 이름</h2>
         <h2>환영합니다, <%= user[0].user_name %> 님!</h2>
+        <button class="write-button" onclick="goWrite()">게시글 작성</button>
     </header>
     <% for(let i=0; i<data.length; i++) { %>
         <div class="post" onclick="getPost(data[i]._id)">
@@ -79,28 +80,6 @@
             <div class="comments">댓글 수: 댓글 수</div>
         </div>
     <%}%>
-    <div class="post-list">
-        <div class="post">
-            <div class="post-title">게시글 제목</div>
-            <div class="author-profile">작성자: 작성한 사람</div>
-            <div class="post-info">작성일: 작성한 날짜 | 조회수: 조회수</div>
-            <div class="post-content">
-                게시글 내용<br>
-                여기에 게시글 내용을 표시합니다.
-            </div>
-            <button class="like-button">좋아요</button>
-            <div class="comments">댓글 수: 댓글 수</div>
-        <button class = "write-button" onclick = "goWrite()">게시글 작성</div>
-    </header>
-    <div class="post">
-        <div class="post-title">제목 : </div>
-        <div class="author-profile">작성자: 작성한 사람</div>
-        <div class="post-info">작성일: 작성한 날짜 | 조회수: 조회수</div>
-        <div class="post-content">
-            게시글 내용<br>
-            여기에 게시글 내용을 표시합니다.
-        </div>
-    </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         
