@@ -70,11 +70,10 @@
     <% for(let i=0; i<data.length; i++) { %>
         <div class="post" onclick="getPost(data[i]._id)">
             <div class="post-title"><%= data[i].post_title %></div>
-            <div class="author-profile"><%= data[i].user_id.user_name %></div>
+            <div class="author-profile">작성자 : <%= data[i].user_id.user_name %></div>
             <div class="post-info">작성일:<%= data[i].post_date %> | 조회수: <%= data[i].post_view %></div>
             <div class="post-content">
-                게시글 내용<br>
-                여기에 게시글 내용을 표시합니다.
+                게시글 내용: <%= data[i].post_content %><br>
             </div>
             <button class="like-button">좋아요</button>
             <div class="comments">댓글 수: 댓글 수</div>

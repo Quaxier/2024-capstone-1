@@ -44,8 +44,10 @@ router.post('/', async(req, res, next)=>{ // 게시글 작성 기능
     try{
         console.log('게시글 작성 요청 수신됨!');
         console.log(req.body);
+        console.log(typeof(req.session.user));
+        console.log(req.session.user);
         await Post.create({
-            user_id: user.user_id,
+            user_id: req.session.user,
             post_title: req.body.title,
             post_view: "0",
             post_content: req.body.content
