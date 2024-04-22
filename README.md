@@ -6,3 +6,4 @@
 # 2024-04-17 17:49 Changes: 명재 - 게시글 작성 기능 구현 중 문제 발생 (post 라우터 인식 불가 현상). 해결 시도중
 # 2024-04-17 23:26 Changes: 명재 - 게시글 작성 기능 임시 구현 완료 (user_id ObjectId값을 어떻게 받아올 지 해결해야 함)
 # 2024-04-20 21:50 Changes: 명재 - session.user에 있는 데이터를 파싱하려 했으나 user.id / user._id가 undefined로 반환됨. 해결필요
+# 2024-04-21 nn:nn Changes: 명재 - 게시글 작성 기능 구현 완료
