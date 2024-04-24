@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../schema/user');
 const Post = require('../schema/post');
+const Comment = require('../schema/comment');
 
 const router = express.Router();
 
@@ -25,13 +26,19 @@ router.get('/:postid', async(req, res, next)=> {
         const posts = await Post.find({_id: req.params.postid}).populate('user_id', 'user_id');
         console.log(posts);
 
+        //post_id 기반으로 댓글 또한 검색해서 첫 로딩 시 보여주기: 테스트 필요
+        //objectid를 이런 식으로 find할 수 있는가?
+        const comments = await Comment.find({post_id: req.params.postid}).populate('user_id').populate('post_id');
+
         // 세션 유저 정보와 게시글 작성자 정보가 일치할 경우 구분
-        if(req.session.user[0].user_id == posts.user_id) {
-            res.render('', {data: posts, user: req.session.user});
-        }
-        else {
-            res.render('', {data: posts});
-        };
+        // 세션 유저정보는 반드시 필요 => 내가 쓴 글일 수 있음 or 내가 쓴 댓글, 대댓글이 있을 수 있음
+        res.render('', {data: posts, data2:comments, user: req.session.user});
+        // if(req.session.user[0].user_id == posts.user_id) {
+        //     res.render('', {data: posts, data2:comments, user: req.session.user});
+        // }
+        // else {
+        //     res.render('', {data: posts});
+        // };
 
     }
     catch(err) {

@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { Types: { ObjectId } } = Schema; // ObjectId 타입은 따로 꺼내주어야 한다.
 const commentSchema = new Schema({
-    comment_id: {
-        type: String,
-        required: true,
-        unique: true,
-    },
+    // comment_id: {
+    //     type: String,
+    //     required: true,
+    //     unique: true,
+    // },
     user_id: {
         type: ObjectId,
         required: true,
@@ -24,7 +24,11 @@ const commentSchema = new Schema({
     },
     comment_content: {
         type: String,
-    }
+    },
+    recomment_id: [{
+        type: ObjectId,
+        ref: 'Recomment'
+    }]
 })
 
 module.exports = mongoose.model('Comment', commentSchema);
