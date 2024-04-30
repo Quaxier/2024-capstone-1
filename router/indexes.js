@@ -10,10 +10,10 @@ router.get('/', async (req, res, next) => {
     console.log(req.session);
     if(req.session.user) {
       console.log('세션 유지됨 : ' + req.session.user[0]._id);
-      res.send(`<script>alert('세션 유지됨');location.href='/posts';</script>`);
+      res.send(`<script>alert('세션 유지됨');location.href='/main';</script>`);
     }
     else {
-      res.render('login.ejs');
+      res.render('login2.ejs');
     }
     //const users = await User.find({});
     //console.log(users);
@@ -34,9 +34,10 @@ router.get('/', async (req, res, next) => {
 
     // 데이터 삽입 테스트
     // const post = await Post.create({
+    //     post_category: 'message',
     //     user_id: '66168e989eb154f9710f8d46',
-    //     post_title: 'Test title 3',
-    //     post_content: 'I want to die really!!#!!#@@',
+    //     post_title: 'Test title 5',
+    //     post_content: 'I want to die really!!#!!#@@\nplz giveme2103214bucks',
     // });
     // console.log(post);
     // console.log('post data inserted!');
@@ -57,20 +58,34 @@ router.get('/register', async(req, res, next)=>{
   }
 });
 
-// router.get('/main', async(req, res, next)=>{
-//   try {
-//     // console.log('메인 페이지 호출됨');
-//     // res.render('main.ejs');
-//     console.log('게시글 목록 요청 수신됨!');
-//     const posts = await Post.find({}).populate('user_id', 'user_name');
-//     console.log(posts);
-//     res.render('main.ejs', {data: posts});
-//   }
-//   catch(err) {
-//     console.error(err);
-//     next(err);
-//   }
-// });
+router.get('/logout', async(req, res, next)=> {
+  try {
+    console.log('로그아웃 요청 수신됨')
+    req.session.destroy();
+    // res.render('login2.ejs');
+    // res.send(`<script>alert('로그아웃 되었습니다!');location.replace('/');</script>`);
+    res.sendFile(__dirname+'/login2.ejs');
+  }
+  catch(err) {
+    console.error(err);
+    next(err);
+  }
+})
+
+router.get('/main', async(req, res, next)=>{
+  try {
+    console.log('메인 페이지 호출됨');
+    res.render('main2.ejs');
+    // console.log('게시글 목록 요청 수신됨!');
+    // const posts = await Post.find({}).populate('user_id', 'user_name');
+    // console.log(posts);
+    // res.render('main.ejs', {data: posts});
+  }
+  catch(err) {
+    console.error(err);
+    next(err);
+  }
+});
 
 router.get('/post', async(req, res, next)=>{
   try {

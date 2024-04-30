@@ -7,11 +7,12 @@ const router = express.Router();
 
 router.route('/').get(async (req, res, next)=> {
     try {
-        console.log('게시글 목록 요청 수신됨!');
-        const posts = await Post.find({}).populate('user_id');
-        posts.reverse();
+        console.log('게시글 목록 요청 수신됨 :' + req.query.category);
+        const posts = await Post.find({post_category: req.query.category}).populate('user_id');
+        // posts.reverse();
         console.log(posts);
-        res.render('main.ejs', {data: posts, user: req.session.user});
+        // res.render('main.ejs', {data: posts, user: req.session.user});
+        res.json(posts);
     }
     catch(err) {
         console.error(err);

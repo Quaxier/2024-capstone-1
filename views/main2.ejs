@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴공 커뮤니티</title>
+    <!-- 부트스트랩 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 아이콘 라이브러리 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .logo {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .logout {
+            margin-top: 20px;
+            float: right;
+        }
+        .icons {
+            margin-top: 20px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 로고 -->
+        <div class="row">
+            <div class="col text-center">
+                <span class="logo">컴공 커뮤니티</span>
+            </div>
+        </div>
+        <!-- 로그아웃 아이콘 -->
+        <div class="row">
+            <div class="col text-right">
+                <span class="logout">
+                    <a href="#" title="로그아웃" onclick="Logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <!-- 아이콘들 -->
+        <div class="row icons justify-content-center">
+            <!-- 커뮤니티 아이콘 -->
+            <div class="col-1 text-center">
+                <a href="#" title="컴공 커뮤니티">
+                    <i class="fas fa-users"></i>
+                </a>
+            </div>
+            <!-- 게시글 조회 아이콘 -->
+            <div class="col-1 text-center">
+                <a href="#" title="schedule">
+                    <i class="fas fa-calendar-alt"></i>
+                </a>
+            </div>
+            <div class="col-1 text-center">
+                <a href="#" title="graduation">
+                    <i class="fas fa-graduation-cap"></i>
+                </a>
+            </div>
+            <div class="col-1 text-center">
+                <a href="#" title="code">
+                    <i class="fas fa-code"></i>
+                </a>
+            </div>
+            <div class="col-1 text-center">
+                <a href="#" title="message">
+                    <i class="fas fa-comments"></i>
+                </a>
+            </div>
+            <!-- 게시글 작성 아이콘 -->
+            <div class="col-1 text-center">
+                <a href="#" title="게시글 작성">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </div>
+        </div>
+        <!-- 게시글 목록 -->
+        <div class="post-list">
+            <div class="row">
+                <div class="col">
+                    <!-- 글 번호 -->
+                    <div class="post-id">1</div>
+                </div>
+                <div class="col">
+                    <!-- 글 제목 -->
+                    <div class="post-title">첫 번째 게시글</div>
+                </div>
+                <div class="col">
+                    <!-- 댓글 수 -->
+                    <div class="comment-count">10</div>
+                </div>
+            </div>
+        </div>
+        <!-- 페이지네이션 -->
+        <div class="row pagination">
+            <div class="col text-center">
+                <a href="#" title="이전 페이지" onclick="movePage(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="#" title="다음 페이지" onclick="movePage(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let page=1;
+        let pageMax=1;
+        let menu='message';
+        let data=[];
+
+        // 사용자 이름 눌렀을 때 댓글 로딩
+        document.querySelectorAll('div.col-1.text-center').forEach((el) => {
+            el.addEventListener('click', function () {
+                menu = el.querySelector('a').title;
+                getPostlist(menu, 1);
+            });
+        });
+
+        getPostlist(menu, page);
+
+        function movePage(i) {
+            let val = page+i;
+            if(val<1 || val>pageMax) {return;}
+                else {page=val; getPostlist(menu, page);}
+        }
+
+        function Logout() {
+            alert('로그아웃 합니다!');
+            location.replace('/logout');
+        }
+
+        async function getPostlist(menu, page) {
+            try{
+                if(data.length==0) {
+                    const res = await axios.get('/posts', {params: {category: menu}});
+                    data = res.data;
+                    if(data.length>10){
+                        if(data.length%10==0) {pageMax=data.length/10}
+                        else{pageMax=data.length/10+1}
+                    }
+                }
+
+                // alert('getpostlist 실행!'+data[0].post_title);
+                const currentPage = data.length-(page*10);
+                const postlist = document.querySelector('.post-list');
+                postlist.innerHTML='';
+
+                if(data.length/(page*10)<1) {
+                    for(let i=0; i<data.length; i++){
+                    let row = document.createElement('div');
+                    row.className='row'
+                    let col1 = document.createElement('div');
+                    col1.className='col'
+                    let col2 = document.createElement('div');
+                    col2.className='col'
+                    let col3 = document.createElement('div');
+                    col3.className='col'
+                    let index = document.createElement('div');
+                    index.className='post-id'
+                    index.innerText=data.length-i;
+                    let title = document.createElement('div');
+                    title.className='post-title'
+                    title.innerText=data[data.length-i-1].post_title;
+                    let count = document.createElement('div');
+                    count.className='comment-count'
+                    count.innerText=data[data.length-i-1].user_id.user_name;
+
+                    col1.appendChild(index);
+                    col2.appendChild(title);
+                    col3.appendChild(count);
+                    row.appendChild(col1);
+                    row.appendChild(col2);
+                    row.appendChild(col3);
+
+                    row.addEventListener('click', function() {
+                        location.href(`/posts/${data[data.length-i-1]._id}`);
+                    });
+
+                    postlist.appendChild(row);
+                    }
+                }
+                else {
+                    for(let i=0; i<10; i++){
+                    let row = document.createElement('div');
+                    row.className='row'
+                    let col1 = document.createElement('div');
+                    col1.className='col'
+                    let col2 = document.createElement('div');
+                    col2.className='col'
+                    let col3 = document.createElement('div');
+                    col3.className='col'
+                    let index = document.createElement('div');
+                    index.className='post-id'
+                    index.innerText=page*10-i;
+                    let title = document.createElement('div');
+                    title.className='post-title'
+                    title.innerText=data[page*10-i].post_title;
+                    let count = document.createElement('div');
+                    count.className='comment-count'
+                    count.innerText=data[page*10-i].user_id.user_name;
+
+                    col1.appendChild(index);
+                    col2.appendChild(title);
+                    col3.appendChild(count);
+                    row.appendChild(col1);
+                    row.appendChild(col2);
+                    row.appendChild(col3);
+
+                    postlist.appendChild(row);
+                    }
+                }
+
+                
+            }
+            catch(err) {
+                console.error(err);
+            }
+        }
+
+        async function goWrite() {
+            location.replace('/post');
+        }
+    </script>
+</body>
+</html>
