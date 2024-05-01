@@ -184,7 +184,7 @@
                     row.appendChild(col3);
 
                     row.addEventListener('click', function() {
-                        location.href(`/posts/${data[data.length-i-1]._id}`);
+                        location.replace(`/posts/${data[data.length-i-1]._id}`);
                     });
 
                     postlist.appendChild(row);
